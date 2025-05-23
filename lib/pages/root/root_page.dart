@@ -54,8 +54,9 @@ class _RootPageState extends State<RootPage> {
             context,
             destination: sdkStatus.extraData,
             onGranted: () {
-              DriveModel.safeDriving = false;
-              DriveModel.continueDriving = true;
+              final drive = Provider.of<DriveModel>(context, listen: false);
+              drive.setSafeDriving(false);
+
               if (context.mounted) {
                 context.go(AppRoutes.drivePage);
               }
@@ -226,6 +227,11 @@ class _RootPageState extends State<RootPage> {
                   child: const Text('Normal Car Config'),
                 ),
                 TextButton(
+                  onPressed: () => context.go('/location/start'),
+                  child: const Text('출발지 선택하기'),
+                ),
+
+                TextButton(
                   style: ButtonStyle(foregroundColor: MaterialStateProperty.all<Color>(Colors.blue),),
                   onPressed: () {
                     setTruckConfig();
@@ -244,8 +250,9 @@ class _RootPageState extends State<RootPage> {
                   onPressed: () async {
                     if (!(await checkTmapUISDK())) return;
 
-                    DriveModel.safeDriving = false;
-                    DriveModel.continueDriving = false;
+                    final drive = Provider.of<DriveModel>(context, listen: false);
+                    drive.setSafeDriving(false);
+
                     if (context.mounted) {
                       context.go(AppRoutes.drivePage);
                     }
@@ -257,8 +264,9 @@ class _RootPageState extends State<RootPage> {
                   onPressed: () async {
                     if (!(await checkTmapUISDK())) return;
 
-                    DriveModel.safeDriving = true;
-                    DriveModel.continueDriving = false;
+                    final drive = Provider.of<DriveModel>(context, listen: false);
+                    drive.setSafeDriving(true);
+
                     if (context.mounted) {
                       context.go(AppRoutes.drivePage);
                     }
@@ -270,8 +278,9 @@ class _RootPageState extends State<RootPage> {
                   onPressed: () async {
                     if (!(await checkTmapUISDK())) return;
 
-                    DriveModel.safeDriving = false;
-                    DriveModel.continueDriving = true;
+                    final drive = Provider.of<DriveModel>(context, listen: false);
+                    drive.setSafeDriving(false);
+
                     if (context.mounted) {
                       context.go(AppRoutes.drivePage);
                     }
